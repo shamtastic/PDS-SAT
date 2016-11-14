@@ -34,6 +34,7 @@ void exct_one_or(int ** z, int x, int y)
 void main()
 {
 	int L, n, p, q, var_no = 1;
+	ofstream output;
 
 	cout << "enter the length of DS: ";
 	cin >> L;//given as argh[]
