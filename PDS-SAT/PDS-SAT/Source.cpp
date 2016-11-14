@@ -7,9 +7,17 @@ void exct_one_or(int**, int, int);
 int get_transition(int**, int, int);
 void imply(int, int, int);
 
-int main()
+void initilize_CNF() {
+	cout << "P CNF " << "#Var #Sums\n";
+}
+
+void main()
 {
-	int i, j, k, l, L, n, ns, p, q, var_no = 1;
+	int L, n, ns, p, q, var_no = 1;
+
+	//create file input stream
+	//create file output stream
+	//open file streams
 
 	cout << "enter the length of DS: ";
 	cin >> L;//Read from file
@@ -22,10 +30,10 @@ int main()
 
 	//allocate memory for p*L input variables
 	int ** x = new int*[L];
-	for (i = 0; i<L; i++)
+	for (int i = 0; i<L; i++)
 	{
 		x[i] = new int[p];
-		for (j = 0; j < p; j++)
+		for (int j = 0; j < p; j++)
 		{
 			x[i][j] = var_no++;   //xl={1,2,3,..,p*L}
 		}
@@ -33,38 +41,38 @@ int main()
 
 	//allocate memory for n*L*n state variables
 	int *** s = new int**[n];
-	for (i = 0; i<n; i++)
+	for (int i = 0; i<n; i++)
 	{
 		s[i] = new int*[L];
-		for (j = 0; j < L; j++)
+		for (int j = 0; j < L; j++)
 		{
 			s[i][j] = new int[n];
-			for (k = 0; k < n; k++)
+			for (int k = 0; k < n; k++)
 				s[i][j][k] = var_no++;
 		}
 	}
 
 	//allocate memory for n*L*q output variables
 	int *** y = new int**[n];
-	for (i = 0; i<n; i++)
+	for (int i = 0; i<n; i++)
 	{
 		y[i] = new int*[L];
-		for (j = 0; j < L; j++)
+		for (int j = 0; j < L; j++)
 		{
 			y[i][j] = new int[q];
-			for (k = 0; k < q; k++)
+			for (int k = 0; k < q; k++)
 				y[i][j][k] = var_no++;
 		}
 	}
 
 	//allocate memory for (p*n)*4 transition variables
 	int ** t = new int*[p*n];
-	for (i = 0; i<(p*n); i++)
+	for (int i = 0; i<(p*n); i++)
 		t[i] = new int[4];
 
 	//inserting transitions
-	for (i = 0; i < (p*n); i++)
-		for (j = 0; j < 4; j++)
+	for (int i = 0; i < (p*n); i++)
+		for (int j = 0; j < 4; j++)
 			cin >> t[i][j];
 
 	//generating clauses for Q1
@@ -72,27 +80,27 @@ int main()
 
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q2
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 		cout << s[i][0][i] << " 0\n";
 
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q3
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 		exct_one_or(s[i], L, n);
 
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q4
-	for (i = 0; i < n; i++)
-		for (l = 0; l < (L - 1); l++)
-			for (j = 0; j < n; j++)
-				for (k = 0; k < p; k++)
+	for (int i = 0; i < n; i++)
+		for (int l = 0; l < (L - 1); l++)
+			for (int j = 0; j < n; j++)
+				for (int k = 0; k < p; k++)
 				{
 					ns = get_transition(t, j, k);
 					imply(s[i][l][j], x[l][k], s[i][l + 1][ns]);
 				}
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q5
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 		exct_one_or(y[i], L, q);
 
 	cout << "/---------------------------------------------\n";
@@ -107,8 +115,10 @@ int main()
 	//	}
 	//	cout << "\n";
 	//}
-	cin >> p; //to stop the screen
-	return 0;
+
+	//Close file streams 
+
+	system("PAUSE");
 }
 
 
