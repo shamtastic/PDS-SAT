@@ -87,7 +87,7 @@ void main()
 			E[i][l] = var_no++;
 		}
 	}
-
+	initilize_CNF();
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q1
 	exct_one_or(x, L, p);
