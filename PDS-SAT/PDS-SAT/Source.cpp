@@ -150,7 +150,7 @@ void main()
 			for (int l = 0; l < L; l++)
 				for (int k = 0; k < q; k++)
 					for (int m = 0; m < q; m++)
-						if (m!= k) imply(y[i][l][k], y[j][l][m], E[ec2][l]);
+						if (m != k) imply(y[i][l][k], y[j][l][m], E[ec2][l]);
 			ec2++;
 		}
 	cout << "/---------------------------------------------\n";
@@ -162,7 +162,7 @@ void main()
 		{
 			for (int l = 0; l < L; l++)
 				//imply(y[i][l][k], y[j][l][m], E[ec][l]);
-			ec3++;
+				ec3++;
 		}
 	cout << "/---------------------------------------------\n";
 	//checking s, or y
