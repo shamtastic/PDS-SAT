@@ -12,7 +12,7 @@ void initilize_CNF() {
 	cout << "P CNF " << "#Var #Sums\n";
 }
 
-void main()
+void main(int argc, char* argv[])
 {
 	int L, n, o, ns, p, q, var_no = 1;
 
