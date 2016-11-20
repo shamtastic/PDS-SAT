@@ -29,7 +29,7 @@ void main()
 	cout << "enter number of states: ";
 	cin >> n;//Read from file
 
-			 //allocate memory for p*L input variables
+	//allocate memory for p*L input variables
 	int ** x = new int*[L];
 	for (int i = 0; i < L; i++)
 	{
@@ -153,8 +153,8 @@ void main()
 						if (m != k) imply(y[i][l][k], y[j][l][m], E[ec2][l]);
 			ec2++;
 		}
-	cout << "/---------------------------------------------\n";
 
+	cout << "/---------------------------------------------\n";
 	//generating clauses for Q9 (NOT FINISHED)
 	int ec3 = 0;
 	for (int i = 0; i < (n - 1); i++)
@@ -164,6 +164,7 @@ void main()
 				//imply(y[i][l][k], y[j][l][m], E[ec][l]);
 				ec3++;
 		}
+
 	cout << "/---------------------------------------------\n";
 	//checking s, or y
 	//for (i = 0; i < n; i++)
