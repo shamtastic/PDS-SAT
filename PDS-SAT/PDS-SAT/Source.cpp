@@ -4,7 +4,8 @@
 using namespace std;
 
 void exct_one_or(int**, int, int);
-int get_transition(int**, int, int);
+int get_nextstate(int**, int, int);
+int get_output(int**, int, int);
 void imply(int, int, int);
 
 void initilize_CNF() {
@@ -13,7 +14,7 @@ void initilize_CNF() {
 
 void main()
 {
-	int L, n, ns, p, q, var_no = 1;
+	int L, n, o, ns, p, q, var_no = 1;
 
 	//create file input stream
 	//create file output stream
@@ -28,9 +29,9 @@ void main()
 	cout << "enter number of states: ";
 	cin >> n;//Read from file
 
-	//allocate memory for p*L input variables
+			 //allocate memory for p*L input variables
 	int ** x = new int*[L];
-	for (int i = 0; i<L; i++)
+	for (int i = 0; i < L; i++)
 	{
 		x[i] = new int[p];
 		for (int j = 0; j < p; j++)
@@ -41,7 +42,7 @@ void main()
 
 	//allocate memory for n*L*n state variables
 	int *** s = new int**[n];
-	for (int i = 0; i<n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		s[i] = new int*[L];
 		for (int j = 0; j < L; j++)
@@ -54,7 +55,7 @@ void main()
 
 	//allocate memory for n*L*q output variables
 	int *** y = new int**[n];
-	for (int i = 0; i<n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		y[i] = new int*[L];
 		for (int j = 0; j < L; j++)
@@ -67,14 +68,27 @@ void main()
 
 	//allocate memory for (p*n)*4 transition variables
 	int ** t = new int*[p*n];
-	for (int i = 0; i<(p*n); i++)
+	for (int i = 0; i < (p*n); i++)
 		t[i] = new int[4];
 
 	//inserting transitions
+	cout << "enter the transitions:\n";
 	for (int i = 0; i < (p*n); i++)
 		for (int j = 0; j < 4; j++)
 			cin >> t[i][j];
 
+	//allocate memory for (n*(n-1)/2)*L comparison variables
+	int ** E = new int*[n*(n - 1) / 2];
+	for (int i = 0; i < n; i++)
+	{
+		E[i] = new int[L];
+		for (int l = 0; l < L; l++)
+		{
+			E[i][l] = var_no++;
+		}
+	}
+
+	cout << "/---------------------------------------------\n";
 	//generating clauses for Q1
 	exct_one_or(x, L, p);
 
@@ -95,14 +109,49 @@ void main()
 			for (int j = 0; j < n; j++)
 				for (int k = 0; k < p; k++)
 				{
-					ns = get_transition(t, j, k);
+					ns = get_nextstate(t, j, k);
 					imply(s[i][l][j], x[l][k], s[i][l + 1][ns]);
 				}
+
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q5
 	for (int i = 0; i < n; i++)
 		exct_one_or(y[i], L, q);
 
+	cout << "/---------------------------------------------\n";
+	//generating clauses for Q6
+	for (int i = 0; i < n; i++)
+		for (int l = 0; l < L; l++)
+			for (int j = 0; j < n; j++)
+				for (int k = 0; k < p; k++)
+				{
+					o = get_output(t, j, k);
+					imply(s[i][l][j], x[l][k], y[i][l][o]);
+				}
+
+	cout << "/---------------------------------------------\n";
+	//generating clauses for Q7
+	int ec = 0;
+	for (int i = 0; i < (n - 1); i++)
+		for (int j = i + 1; j < n; j++)
+		{
+			for (int l = 0; l < L; l++)
+				for (int k = 0; k < q; k++)
+					imply(y[i][l][k], y[j][l][k], E[ec][l]);
+			ec++;
+		}
+
+	cout << "/---------------------------------------------\n";
+	//generating clauses for Q8
+	for (int i = 0; i < (n - 1); i++)
+		for (int j = i + 1; j < n; j++)
+		{
+			for (int l = 0; l < L; l++)
+				for (int k = 0; k < q; k++)
+					for (int m = 0; m < q; m++)
+						if (m!= k) imply(y[i][l][k], y[j][l][m], E[ec][l]);
+			ec++;
+		}
 	cout << "/---------------------------------------------\n";
 	//checking s, or y
 	//for (i = 0; i < n; i++)
@@ -142,9 +191,15 @@ void exct_one_or(int ** z, int x, int y)
 }
 
 //get the next state from the correct transition
-int get_transition(int** t, int j, int k)
+int get_nextstate(int** t, int j, int k)
 {
 	return t[(2 * j + k)][2];
+}
+
+//get the output from the correct transition
+int get_output(int** t, int j, int k)
+{
+	return t[(2 * j + k)][3];
 }
 
 //output clause to screen
