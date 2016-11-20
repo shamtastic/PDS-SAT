@@ -131,26 +131,38 @@ void main()
 
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q7
-	int ec = 0;
+	int ec1 = 0;
 	for (int i = 0; i < (n - 1); i++)
 		for (int j = i + 1; j < n; j++)
 		{
 			for (int l = 0; l < L; l++)
 				for (int k = 0; k < q; k++)
-					imply(y[i][l][k], y[j][l][k], E[ec][l]);
-			ec++;
+					imply(y[i][l][k], y[j][l][k], E[ec1][l]);
+			ec1++;
 		}
 
 	cout << "/---------------------------------------------\n";
-	//generating clauses for Q8
+	//generating clauses for Q8 (NOT TESTED)
+	int ec2 = 0;
 	for (int i = 0; i < (n - 1); i++)
 		for (int j = i + 1; j < n; j++)
 		{
 			for (int l = 0; l < L; l++)
 				for (int k = 0; k < q; k++)
 					for (int m = 0; m < q; m++)
-						if (m!= k) imply(y[i][l][k], y[j][l][m], E[ec][l]);
-			ec++;
+						if (m!= k) imply(y[i][l][k], y[j][l][m], E[ec2][l]);
+			ec2++;
+		}
+	cout << "/---------------------------------------------\n";
+
+	//generating clauses for Q9 (NOT FINISHED)
+	int ec3 = 0;
+	for (int i = 0; i < (n - 1); i++)
+		for (int j = i + 1; j < n; j++)
+		{
+			for (int l = 0; l < L; l++)
+				//imply(y[i][l][k], y[j][l][m], E[ec][l]);
+			ec3++;
 		}
 	cout << "/---------------------------------------------\n";
 	//checking s, or y
