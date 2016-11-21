@@ -6,7 +6,7 @@ using namespace std;
 void exct_one_or(int**, int, int);
 int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
-void imply(int, int, int, bool);
+void imply(int, int, int, bool = false);
 void initilize_CNF();
 void PDS_CHecking(int**, int, int);
 
@@ -137,7 +137,7 @@ void main(int argc, char* argv[])
 		{
 			for (int l = 0; l < L; l++)
 				for (int k = 0; k < q; k++)
-					imply(y[i][l][k], y[j][l][k], E[ec1][l], false);
+					imply(y[i][l][k], y[j][l][k], E[ec1][l]);
 			ec1++;
 		}
 
