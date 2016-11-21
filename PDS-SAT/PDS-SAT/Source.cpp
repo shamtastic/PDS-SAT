@@ -7,10 +7,9 @@ void exct_one_or(int**, int, int);
 int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
 void imply(int, int, int, bool);
+void initilize_CNF();
 
-void initilize_CNF() {
-	cout << "P CNF " << "#Var #Sums\n";
-}
+
 
 void main(int argc, char* argv[])
 {
@@ -183,6 +182,10 @@ void main(int argc, char* argv[])
 	system("PAUSE");
 }
 
+
+void initilize_CNF() {
+	cout << "P CNF " << "#Var #Sums\n";
+}
 
 //exactly one or for two dimensions array
 void exct_one_or(int ** z, int x, int y)
