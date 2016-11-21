@@ -6,7 +6,7 @@ using namespace std;
 void exct_one_or(int**, int, int);
 int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
-void imply(int, int, int);
+void imply(int, int, int, bool);
 
 void initilize_CNF() {
 	cout << "P CNF " << "#Var #Sums\n";
@@ -137,7 +137,7 @@ void main(int argc, char* argv[])
 		{
 			for (int l = 0; l < L; l++)
 				for (int k = 0; k < q; k++)
-					imply(y[i][l][k], y[j][l][k], E[ec1][l]);
+					imply(y[i][l][k], y[j][l][k], E[ec1][l], false);
 			ec1++;
 		}
 
@@ -150,7 +150,7 @@ void main(int argc, char* argv[])
 			for (int l = 0; l < L; l++)
 				for (int k = 0; k < q; k++)
 					for (int m = 0; m < q; m++)
-						if (m != k) imply(y[i][l][k], y[j][l][m], E[ec2][l]);
+						if (m != k) imply(y[i][l][k], y[j][l][m], E[ec2][l], true);
 			ec2++;
 		}
 
@@ -216,7 +216,10 @@ int get_output(int** t, int j, int k)
 }
 
 //output clause to screen
-void imply(int s, int k, int ns)
+void imply(int s, int k, int ns, bool flag)
 {
-	cout << -s << " " << -k << " " << ns << " 0\n";
+	if (!flag)
+		cout << -s << " " << -k << " " << ns << " 0\n";
+	else
+		cout << -s << " " << -k << " " << -ns << " 0\n";
 }
