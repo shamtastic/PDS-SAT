@@ -8,6 +8,7 @@ int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
 void imply(int, int, int, bool);
 void initilize_CNF();
+void PDS_CHecking(int**, int, int);
 
 
 
@@ -225,4 +226,7 @@ void imply(int s, int k, int ns, bool flag)
 		cout << -s << " " << -k << " " << ns << " 0\n";
 	else
 		cout << -s << " " << -k << " " << -ns << " 0\n";
+}
+
+void PDS_CHecking(int** E, int L, int n) {
 }
