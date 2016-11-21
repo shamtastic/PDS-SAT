@@ -8,7 +8,7 @@ int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
 void imply(int, int, int, bool = false);
 void initilize_CNF();
-void PDS_CHecking(int**, int, int);
+void PDS_Checking(int**, int, int);
 
 
 
@@ -155,28 +155,11 @@ void main(int argc, char* argv[])
 		}
 
 	cout << "/---------------------------------------------\n";
-	//generating clauses for Q9 (NOT FINISHED)
-	int ec3 = 0;
-	for (int i = 0; i < (n - 1); i++)
-		for (int j = i + 1; j < n; j++)
-		{
-			for (int l = 0; l < L; l++)
-				//imply(y[i][l][k], y[j][l][m], E[ec][l]);
-				ec3++;
-		}
+	//generating clauses for Q9 (NOT TESTED)
+	PDS_Checking(E, L, n);
 
 	cout << "/---------------------------------------------\n";
-	//checking s, or y
-	//for (i = 0; i < n; i++)
-	//{
-	//	for (j = 0; j < L; j++)
-	//	{
-	//		for (k = 0; k < q; k++)
-	//			cout << y[i][j][k] << " ";
-	//		cout << "\n";
-	//	}
-	//	cout << "\n";
-	//}
+
 
 	//Close file streams 
 
@@ -228,5 +211,10 @@ void imply(int s, int k, int ns, bool flag)
 		cout << -s << " " << -k << " " << -ns << " 0\n";
 }
 
-void PDS_CHecking(int** E, int L, int n) {
+void PDS_Checking(int** E, int L, int n) {
+	for (int i = 0; i < n; i++) {
+		for (int l = 0; l < L; l++)
+			cout << -E[i][l] << " 0/n";
+	}
+
 }
