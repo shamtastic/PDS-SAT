@@ -214,7 +214,8 @@ void imply(int s, int k, int ns, bool flag)
 void PDS_Checking(int** E, int L, int n) {
 	for (int i = 0; i < n; i++) {
 		for (int l = 0; l < L; l++)
-			cout << -E[i][l] << " 0/n";
+			cout << -E[i][l] << " ";
+		cout << "0\n";
 	}
 
 }
