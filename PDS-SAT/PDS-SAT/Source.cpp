@@ -142,7 +142,7 @@ void main(int argc, char* argv[])
 		}
 
 	cout << "/---------------------------------------------\n";
-	//generating clauses for Q8 (NOT TESTED)
+	//generating clauses for Q8
 	int ec2 = 0;
 	for (int i = 0; i < (n - 1); i++)
 		for (int j = i + 1; j < n; j++)
@@ -155,7 +155,7 @@ void main(int argc, char* argv[])
 		}
 
 	cout << "/---------------------------------------------\n";
-	//generating clauses for Q9 (NOT TESTED)
+	//generating clauses for Q9
 	PDS_Checking(E, L, n);
 
 	cout << "/---------------------------------------------\n";
@@ -211,8 +211,10 @@ void imply(int s, int k, int ns, bool flag)
 		cout << -s << " " << -k << " " << -ns << " 0\n";
 }
 
-void PDS_Checking(int** E, int L, int n) {
-	for (int i = 0; i < n; i++) {
+void PDS_Checking(int** E, int L, int n) 
+{
+	for (int i = 0; i < (n*(n-1)/2); i++) 
+	{
 		for (int l = 0; l < L; l++)
 			cout << -E[i][l] << " ";
 		cout << "0\n";
