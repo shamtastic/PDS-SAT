@@ -16,12 +16,12 @@ void main(int argc, char* argv[])
 {
 	int L, n, o, ns, p, q, var_no = 1;
 
-	//create file input stream
-	//create file output stream
-	//open file streams
+	//ifstream fin(argv[2]);
+	//ofstream fout(argv[3]);
 
 	cout << "enter the length of DS: ";
 	cin >> L;//Read from file
+	//L = atoi(argv[1]);
 	cout << "enter number of inputs: ";
 	cin >> p;//Read from file
 	cout << "enter number of outputs: ";
@@ -161,8 +161,10 @@ void main(int argc, char* argv[])
 	cout << "/---------------------------------------------\n";
 
 
-	//Close file streams 
+	//Close file streams
 
+	//fin.close();
+	//fout.close();
 	system("PAUSE");
 }
 
@@ -211,9 +213,9 @@ void imply(int s, int k, int ns, bool flag)
 		cout << -s << " " << -k << " " << -ns << " 0\n";
 }
 
-void PDS_Checking(int** E, int L, int n) 
+void PDS_Checking(int** E, int L, int n)
 {
-	for (int i = 0; i < (n*(n-1)/2); i++) 
+	for (int i = 0; i < (n*(n - 1) / 2); i++)
 	{
 		for (int l = 0; l < L; l++)
 			cout << -E[i][l] << " ";
