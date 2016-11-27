@@ -16,18 +16,21 @@ void main(int argc, char* argv[])
 {
 	int L, n, o, ns, p, q, var_no = 1;
 
-	//ifstream fin(argv[2]);
-	//ofstream fout(argv[3]);
+	//ifstream fin(argv[5]);
+	//ofstream fout(argv[6]);
 
 	cout << "enter the length of DS: ";
 	cin >> L;//Read from file
 	//L = atoi(argv[1]);
 	cout << "enter number of inputs: ";
 	cin >> p;//Read from file
+	//p = atoi(argv[2]);
 	cout << "enter number of outputs: ";
 	cin >> q;//Read from file
+	//q = atoi(argv[3]);
 	cout << "enter number of states: ";
 	cin >> n;//Read from file
+	//n = atoi(argv[4]);
 
 	//allocate memory for p*L input variables
 	int ** x = new int*[L];
@@ -76,6 +79,10 @@ void main(int argc, char* argv[])
 	for (int i = 0; i < (p*n); i++)
 		for (int j = 0; j < 4; j++)
 			cin >> t[i][j];
+
+	//for (int i = 0; !fin.eof(); i++)
+	//	for (int j = 0; j < 4; j++)
+	//		fin >> t[i][j];
 
 	//allocate memory for (n*(n-1)/2)*L comparison variables
 	int ** E = new int*[n*(n - 1) / 2];
