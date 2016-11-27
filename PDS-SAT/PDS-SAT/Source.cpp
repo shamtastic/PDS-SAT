@@ -7,8 +7,10 @@ void exct_one_or(int**, int, int);
 int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
 void imply(int, int, int, bool = false);
-void initilize_CNF();
+void initilize_CNF(int, int, int, int);
 void PDS_Checking(int**, int, int);
+int Calculate_Variables(int, int, int, int);
+int Calculate_Clauses(int, int, int, int);
 
 
 
@@ -94,7 +96,7 @@ void main(int argc, char* argv[])
 			E[i][l] = var_no++;
 		}
 	}
-	initilize_CNF();
+	initilize_CNF(L, n, p, q);
 	cout << "/---------------------------------------------\n";
 	//generating clauses for Q1
 	exct_one_or(x, L, p);
@@ -176,8 +178,8 @@ void main(int argc, char* argv[])
 }
 
 
-void initilize_CNF() {
-	cout << "P CNF " << "#Var #Sums\n";
+void initilize_CNF(int L, int N, int P, int Q) {
+	cout << "P CNF " << Calculate_Variables(L, N, P, Q) << ' ' << Calculate_Clauses(L, N, P, Q) << '\n';
 }
 
 //exactly one or for two dimensions array
@@ -229,4 +231,24 @@ void PDS_Checking(int** E, int L, int n)
 		cout << "0\n";
 	}
 
+}
+
+int Calculate_Variables(int L, int N, int P, int Q) {
+	return ((P*L) +
+		(L*N*N) +
+		(N*L*Q) +
+		(L*N*(N - 1) / 2)
+		);
+}
+
+int Calculate_Clauses(int L, int N, int P, int Q) {
+	return ((P*(P - 1) / 2 + 1) +
+		(N)+
+		(N*L*(N*(N - 1) / 2 + 1)) +
+		(N*N*(L - 1)*P) +
+		(N*L*(Q*(Q - 1) / 2 + 1)) +
+		(N*N*L*P) +
+		(Q*Q*L*N*(N - 1) / 2) +
+		(N*(N - 1) / 2)
+		);
 }
