@@ -3,6 +3,9 @@
 
 using namespace std;
 
+ifstream fin;
+ofstream fout;
+
 void exct_one_or(int**, int, int);
 int get_nextstate(int**, int, int);
 int get_output(int**, int, int);
@@ -21,18 +24,13 @@ void main(int argc, char* argv[])
 	//ifstream fin(argv[5]);
 	//ofstream fout(argv[6]);
 
-	cout << "enter the length of DS: ";
-	cin >> L;//Read from file
-	//L = atoi(argv[1]);
-	cout << "enter number of inputs: ";
-	cin >> p;//Read from file
-	//p = atoi(argv[2]);
-	cout << "enter number of outputs: ";
-	cin >> q;//Read from file
-	//q = atoi(argv[3]);
-	cout << "enter number of states: ";
-	cin >> n;//Read from file
-	//n = atoi(argv[4]);
+	fin.open(argv[5]);
+	fout.open(argv[6]);
+
+	L = atoi(argv[1]);
+	p = atoi(argv[2]);
+	q = atoi(argv[3]);
+	n = atoi(argv[4]);
 
 	//allocate memory for p*L input variables
 	int ** x = new int*[L];
@@ -77,14 +75,10 @@ void main(int argc, char* argv[])
 		t[i] = new int[4];
 
 	//inserting transitions
-	cout << "enter the transitions:\n";
-	for (int i = 0; i < (p*n); i++)
-		for (int j = 0; j < 4; j++)
-			cin >> t[i][j];
 
-	//for (int i = 0; !fin.eof(); i++)
-	//	for (int j = 0; j < 4; j++)
-	//		fin >> t[i][j];
+	for (int i = 0; !fin.eof(); i++)
+		for (int j = 0; j < 4; j++)
+			fin >> t[i][j];
 
 	//allocate memory for (n*(n-1)/2)*L comparison variables
 	int ** E = new int*[n*(n - 1) / 2];
@@ -97,21 +91,21 @@ void main(int argc, char* argv[])
 		}
 	}
 	initilize_CNF(L, n, p, q);
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q1
 	exct_one_or(x, L, p);
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q2
 	for (int i = 0; i < n; i++)
-		cout << s[i][0][i] << " 0\n";
+		fout << s[i][0][i] << " 0\n";
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q3
 	for (int i = 0; i < n; i++)
 		exct_one_or(s[i], L, n);
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q4
 	for (int i = 0; i < n; i++)
 		for (int l = 0; l < (L - 1); l++)
@@ -122,12 +116,12 @@ void main(int argc, char* argv[])
 					imply(s[i][l][j], x[l][k], s[i][l + 1][ns]);
 				}
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q5
 	for (int i = 0; i < n; i++)
 		exct_one_or(y[i], L, q);
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q6
 	for (int i = 0; i < n; i++)
 		for (int l = 0; l < L; l++)
@@ -138,7 +132,7 @@ void main(int argc, char* argv[])
 					imply(s[i][l][j], x[l][k], y[i][l][o]);
 				}
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q7
 	int ec1 = 0;
 	for (int i = 0; i < (n - 1); i++)
@@ -150,7 +144,7 @@ void main(int argc, char* argv[])
 			ec1++;
 		}
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q8
 	int ec2 = 0;
 	for (int i = 0; i < (n - 1); i++)
@@ -163,23 +157,23 @@ void main(int argc, char* argv[])
 			ec2++;
 		}
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q9
 	PDS_Checking(E, L, n);
 
-	cout << "/---------------------------------------------\n";
+	//cout << "/---------------------------------------------\n";
 
 
-	//Close file streams
 
-	//fin.close();
-	//fout.close();
-	system("PAUSE");
+
+	fin.close();
+	fout.close();
+	//system("PAUSE");
 }
 
 
 void initilize_CNF(int L, int N, int P, int Q) {
-	cout << "P CNF " << Calculate_Variables(L, N, P, Q) << ' ' << Calculate_Clauses(L, N, P, Q) << '\n';
+	fout << "P CNF " << Calculate_Variables(L, N, P, Q) << ' ' << Calculate_Clauses(L, N, P, Q) << '\n';
 }
 
 //exactly one or for two dimensions array
@@ -192,12 +186,12 @@ void exct_one_or(int ** z, int x, int y)
 		{
 			for (j = k; j < (y - 1); j++) //negating every two variables
 			{
-				cout << -z[i][k] << " " << -z[i][j + 1] << " 0\n";
+				fout << -z[i][k] << " " << -z[i][j + 1] << " 0\n";
 			}
 		}
 		for (j = 0; j < y; j++) //or all variables
-			cout << z[i][j] << " ";
-		cout << " 0\n";
+			fout << z[i][j] << " ";
+		fout << " 0\n";
 	}
 }
 
@@ -217,9 +211,9 @@ int get_output(int** t, int j, int k)
 void imply(int s, int k, int ns, bool flag)
 {
 	if (!flag)
-		cout << -s << " " << -k << " " << ns << " 0\n";
+		fout << -s << " " << -k << " " << ns << " 0\n";
 	else
-		cout << -s << " " << -k << " " << -ns << " 0\n";
+		fout << -s << " " << -k << " " << -ns << " 0\n";
 }
 
 void PDS_Checking(int** E, int L, int n)
@@ -227,8 +221,8 @@ void PDS_Checking(int** E, int L, int n)
 	for (int i = 0; i < (n*(n - 1) / 2); i++)
 	{
 		for (int l = 0; l < L; l++)
-			cout << -E[i][l] << " ";
-		cout << "0\n";
+			fout << -E[i][l] << " ";
+		fout << "0\n";
 	}
 
 }
