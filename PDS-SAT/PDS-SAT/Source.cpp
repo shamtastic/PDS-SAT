@@ -24,13 +24,19 @@ void main(int argc, char* argv[])
 	//ifstream fin(argv[5]);
 	//ofstream fout(argv[6]);
 
-	fin.open(argv[5]);
-	fout.open(argv[6]);
+	fin.open(argv[2]);
+	fout.open(argv[3]);
 
 	L = atoi(argv[1]);
-	p = atoi(argv[2]);
-	q = atoi(argv[3]);
-	n = atoi(argv[4]);
+
+	fin.ignore(3, ' ');
+	fin >> p;
+	fin.ignore(3, ' ');
+	fin >> q;
+	fin.ignore(5, 's');
+	fin.ignore(3, ' ');
+	fin >> n;
+	fin.ignore(6, '\0');
 
 	//allocate memory for p*L input variables
 	int ** x = new int*[L];
@@ -173,7 +179,7 @@ void main(int argc, char* argv[])
 
 
 void initilize_CNF(int L, int N, int P, int Q) {
-	fout << "P CNF " << Calculate_Variables(L, N, P, Q) << ' ' << Calculate_Clauses(L, N, P, Q) << '\n';
+	fout << "p cnf " << Calculate_Variables(L, N, P, Q) << ' ' << Calculate_Clauses(L, N, P, Q) << '\n';
 }
 
 //exactly one or for two dimensions array
