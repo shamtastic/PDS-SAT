@@ -27,8 +27,8 @@ void main(int argc, char* argv[])
 
 	fin.open(argv[2]);
 	fout.open(argv[3]);
-/*	cout << "enter L: ";
-	cin >> */L;
+	/*	cout << "enter L: ";
+		cin >> */L;
 
 	L = atoi(argv[1]);
 
