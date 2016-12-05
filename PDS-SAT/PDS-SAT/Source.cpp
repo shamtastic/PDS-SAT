@@ -17,24 +17,28 @@ int Calculate_Clauses(int, int, int, int);
 
 
 
-void main(int argc, char* argv[])
+void main(/*int argc, char* argv[]*/)
 {
+
 	int L, n, o, ns, p, q, var_no = 1;
 
 	//ifstream fin(argv[5]);
 	//ofstream fout(argv[6]);
 
-	fin.open(argv[2]);
-	fout.open(argv[3]);
+	fin.open(/*argv[2]*/"input.txt");
+	fout.open(/*argv[3]*/"output.txt");
+	cout << "enter L: ";
+	cin >> L;
 
-	L = atoi(argv[1]);
+	//L = atoi(/*argv[1]*/);
 
-	fin.ignore(3, ' ');
+
+	fin.ignore(100, ' ');
 	fin >> p;
-	fin.ignore(3, ' ');
+	fin.ignore(100, ' ');
 	fin >> q;
-	fin.ignore(5, 's');
-	fin.ignore(3, ' ');
+	fin.ignore(100, 's');
+	fin.ignore(100, ' ');
 	fin >> n;
 	fin.ignore(6, '\0');
 
@@ -81,14 +85,13 @@ void main(int argc, char* argv[])
 		t[i] = new int[4];
 
 	//inserting transitions
-
-	for (int i = 0; !fin.eof(); i++)
+	for (int i = 0; i < (p*n); i++)
 		for (int j = 0; j < 4; j++)
 			fin >> t[i][j];
 
 	//allocate memory for (n*(n-1)/2)*L comparison variables
 	int ** E = new int*[n*(n - 1) / 2];
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < (n*(n - 1) / 2); i++)
 	{
 		E[i] = new int[L];
 		for (int l = 0; l < L; l++)
@@ -96,6 +99,9 @@ void main(int argc, char* argv[])
 			E[i][l] = var_no++;
 		}
 	}
+
+
+
 	initilize_CNF(L, n, p, q);
 	//cout << "/---------------------------------------------\n";
 	//generating clauses for Q1
