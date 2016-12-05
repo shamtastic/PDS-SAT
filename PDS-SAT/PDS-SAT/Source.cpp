@@ -17,7 +17,7 @@ int Calculate_Clauses(int, int, int, int);
 
 
 
-void main(/*int argc, char* argv[]*/)
+void main(int argc, char* argv[])
 {
 
 	int L, n, o, ns, p, q, var_no = 1;
@@ -25,12 +25,12 @@ void main(/*int argc, char* argv[]*/)
 	//ifstream fin(argv[5]);
 	//ofstream fout(argv[6]);
 
-	fin.open(/*argv[2]*/"input.txt");
-	fout.open(/*argv[3]*/"output.txt");
-	cout << "enter L: ";
-	cin >> L;
+	fin.open(argv[2]);
+	fout.open(argv[3]);
+/*	cout << "enter L: ";
+	cin >> */L;
 
-	//L = atoi(/*argv[1]*/);
+	L = atoi(argv[1]);
 
 
 	fin.ignore(100, ' ');
