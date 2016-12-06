@@ -3,6 +3,7 @@
 
 using namespace std;
 
+#pragma warning(disable : 4996)
 ifstream fin;
 ofstream fout;
 
@@ -21,14 +22,13 @@ void main(int argc, char* argv[])
 {
 
 	int L, n, o, ns, p, q, var_no = 1;
-
-	//ifstream fin(argv[5]);
-	//ofstream fout(argv[6]);
+	char* outputfile = new char[32];
 
 	fin.open(argv[2]);
-	fout.open(argv[3]);
-	/*	cout << "enter L: ";
-		cin >> */L;
+	strcpy(outputfile, "SatOut-");
+	strcat(outputfile, argv[2]);
+
+	fout.open(outputfile);
 
 	L = atoi(argv[1]);
 
@@ -180,6 +180,43 @@ void main(int argc, char* argv[])
 
 	fin.close();
 	fout.close();
+
+
+	//Deallocating memmory
+	//Deallocating Outputfile
+	delete[] outputfile;
+
+	//Deallocating x
+	for (int i = 0; i < L; i++) {
+		delete[] x[i];
+	}
+	delete[] x;
+
+	//Deallocating t
+	for (int i = 0; i < p*n; i++) {
+		delete[] t[i];
+	}
+	delete[] t;
+	//Deallocating E
+	for (int i = 0; i < (n*(n - 1) / 2); i++) {
+		delete[] E[i];
+	}
+	delete[] E;
+
+	//Deallocating s & y
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < L; j++) {
+			delete[] s[i][j];
+			delete[] y[i][j];
+		}
+		delete[] s[i];
+		delete[] y[i];
+	}
+	delete[] s;
+	delete[] y;
+
+
 	//system("PAUSE");
 }
 
