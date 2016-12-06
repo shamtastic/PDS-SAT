@@ -8,8 +8,8 @@ ifstream fin;
 ofstream fout;
 
 void exct_one_or(int**, int, int);
-int get_nextstate(int**, int, int);
-int get_output(int**, int, int);
+int get_nextstate(int**, int, int, int);
+int get_output(int**, int, int, int);
 void imply(int, int, int, bool = false);
 void initilize_CNF(int, int, int, int);
 void PDS_Checking(int**, int, int);
@@ -29,6 +29,7 @@ void main(int argc, char* argv[])
 	strcat(outputfile, argv[2]);
 
 	fout.open(outputfile);
+
 
 	L = atoi(argv[1]);
 
@@ -89,6 +90,13 @@ void main(int argc, char* argv[])
 		for (int j = 0; j < 4; j++)
 			fin >> t[i][j];
 
+	for (int i = 0; i < (p*n); i++) {
+		cout << i << ": ";
+		for (int j = 0; j < 4; j++)
+			cout <<t[i][j] << ' ';
+		cout << endl;
+	}
+
 	//allocate memory for (n*(n-1)/2)*L comparison variables
 	int ** E = new int*[n*(n - 1) / 2];
 	for (int i = 0; i < (n*(n - 1) / 2); i++)
@@ -124,7 +132,7 @@ void main(int argc, char* argv[])
 			for (int j = 0; j < n; j++)
 				for (int k = 0; k < p; k++)
 				{
-					ns = get_nextstate(t, j, k);
+					ns = get_nextstate(t, j, k,p);
 					imply(s[i][l][j], x[l][k], s[i][l + 1][ns]);
 				}
 
@@ -140,7 +148,7 @@ void main(int argc, char* argv[])
 			for (int j = 0; j < n; j++)
 				for (int k = 0; k < p; k++)
 				{
-					o = get_output(t, j, k);
+					o = get_output(t, j, k,p);
 					imply(s[i][l][j], x[l][k], y[i][l][o]);
 				}
 
@@ -245,15 +253,15 @@ void exct_one_or(int ** z, int x, int y)
 }
 
 //get the next state from the correct transition
-int get_nextstate(int** t, int j, int k)
+int get_nextstate(int** t, int j, int k,int p)
 {
-	return t[(2 * j + k)][2];
+	return t[( p* j + k)][2];
 }
 
 //get the output from the correct transition
-int get_output(int** t, int j, int k)
+int get_output(int** t, int j, int k,int p)
 {
-	return t[(2 * j + k)][3];
+	return t[(p * j + k)][3];
 }
 
 //output clause to screen
