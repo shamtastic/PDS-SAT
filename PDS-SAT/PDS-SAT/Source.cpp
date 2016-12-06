@@ -182,7 +182,7 @@ void main(int argc, char* argv[])
 	fout.close();
 
 
-	//Deallocating memmory
+	//Deallocating memory
 	//Deallocating Outputfile
 	delete[] outputfile;
 
