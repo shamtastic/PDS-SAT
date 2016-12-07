@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <ctime>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ int Calculate_Clauses(int, int, int, int);
 
 void main(int argc, char* argv[])
 {
+	int start_s = clock();
 
 	int L, n, o, ns, p, q, var_no = 1;
 	char* outputfile = new char[32];
@@ -90,13 +92,6 @@ void main(int argc, char* argv[])
 		for (int j = 0; j < 4; j++)
 			fin >> t[i][j];
 
-	for (int i = 0; i < (p*n); i++) {
-		cout << i << ": ";
-		for (int j = 0; j < 4; j++)
-			cout <<t[i][j] << ' ';
-		cout << endl;
-	}
-
 	//allocate memory for (n*(n-1)/2)*L comparison variables
 	int ** E = new int*[n*(n - 1) / 2];
 	for (int i = 0; i < (n*(n - 1) / 2); i++)
@@ -132,7 +127,7 @@ void main(int argc, char* argv[])
 			for (int j = 0; j < n; j++)
 				for (int k = 0; k < p; k++)
 				{
-					ns = get_nextstate(t, j, k,p);
+					ns = get_nextstate(t, j, k, p);
 					imply(s[i][l][j], x[l][k], s[i][l + 1][ns]);
 				}
 
@@ -148,7 +143,7 @@ void main(int argc, char* argv[])
 			for (int j = 0; j < n; j++)
 				for (int k = 0; k < p; k++)
 				{
-					o = get_output(t, j, k,p);
+					o = get_output(t, j, k, p);
 					imply(s[i][l][j], x[l][k], y[i][l][o]);
 				}
 
@@ -224,6 +219,8 @@ void main(int argc, char* argv[])
 	delete[] s;
 	delete[] y;
 
+	int stop_s = clock();
+	cout << "time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
 	//system("PAUSE");
 }
@@ -253,13 +250,13 @@ void exct_one_or(int ** z, int x, int y)
 }
 
 //get the next state from the correct transition
-int get_nextstate(int** t, int j, int k,int p)
+int get_nextstate(int** t, int j, int k, int p)
 {
-	return t[( p* j + k)][2];
+	return t[(p* j + k)][2];
 }
 
 //get the output from the correct transition
-int get_output(int** t, int j, int k,int p)
+int get_output(int** t, int j, int k, int p)
 {
 	return t[(p * j + k)][3];
 }
