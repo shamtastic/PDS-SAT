@@ -24,7 +24,7 @@ void main(int argc, char* argv[])
 	int start_s = clock();
 
 	int L, n, o, ns, p, q, var_no = 1;
-	char* outputfile = new char[32];
+	char* outputfile = new char[50];
 
 	fin.open(argv[2]);
 	strcpy(outputfile, "SatOut-");
