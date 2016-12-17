@@ -27,7 +27,7 @@ void main(int argc, char* argv[])
 	char* outputfile = new char[50];
 
 	fin.open(argv[2]);
-	strcpy(outputfile, "SatOut-");
+	strcpy(outputfile, "CNF-");
 	strcat(outputfile, argv[2]);
 
 	fout.open(outputfile);
@@ -296,7 +296,7 @@ int Calculate_Clauses(int L, int N, int P, int Q) {
 		(N*N*(L - 1)*P) +
 		(N*L*(Q*(Q - 1) / 2 + 1)) +
 		(N*N*L*P) +
-		(Q*Q*L*N*(N - 1) / 2) +
+		(2*Q*Q*L*N*(N - 1) / 2) +
 		(N*(N - 1) / 2)
 		);
 }
