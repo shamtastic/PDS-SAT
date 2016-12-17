@@ -295,7 +295,7 @@ int Calculate_Variables(int L, int N, int P, int Q) {
 }
 
 int Calculate_Clauses(int L, int N, int P, int Q) {
-	return ((P*(P - 1) / 2 + 1) +
+	return ((P*(P - 1) / 2 + 1)*L +
 		(N)+
 		(N*L*(N*(N - 1) / 2 + 1)) +
 		(N*N*(L - 1)*P) +
