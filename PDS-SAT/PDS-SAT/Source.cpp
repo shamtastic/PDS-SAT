@@ -24,10 +24,15 @@ void main(int argc, char* argv[])
 	int start_s = clock();
 
 	int L, n, o, ns, p, q, var_no = 1;
-	char* outputfile = new char[50];
+	char* outputfile = new char[52];
+	char length[2];
+	L = atoi(argv[1]);
+
+	sprintf(length, "%d%c", L, '-'); // put the int into a string
 
 	fin.open(argv[2]);
-	strcpy(outputfile, "CNF-");
+	strcpy(outputfile, "CNF-L");
+	strcat(outputfile, length);
 	strcat(outputfile, argv[2]);
 
 	fout.open(outputfile);
@@ -296,7 +301,7 @@ int Calculate_Clauses(int L, int N, int P, int Q) {
 		(N*N*(L - 1)*P) +
 		(N*L*(Q*(Q - 1) / 2 + 1)) +
 		(N*N*L*P) +
-		(2*Q*Q*L*N*(N - 1) / 2) +
+		(Q*Q*L*N*(N - 1) / 2) +
 		(N*(N - 1) / 2)
 		);
 }
